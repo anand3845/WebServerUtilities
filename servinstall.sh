@@ -63,6 +63,11 @@ proftpd(){
 		 sudo chown www-data:www-data /var/www/
 		 sudo chmod -R 775 /var/www
 }
+
+bind9() {
+	echo "INstall BIND DNS Server..."
+	sudo apt-get -y -f install bind9	
+}
  
 # function to display menus
 show_menus() {
@@ -76,12 +81,13 @@ show_menus() {
 	echo "4. Install PHP5 Extensions"
 	echo "5. Install Webmin"
 	echo "6. Install ProFtpd"
-	echo "7. Exit"
+	echo "7. Install BIND"
+	echo "8. Exit"
 }
 # read input from the keyboard and take a action
 read_options(){
 	local choice
-	read -p "Enter choice [ 1 - 7] " choice
+	read -p "Enter choice [ 1 - 8] " choice
 	case $choice in
 		1) mysql ;;
 		2) apache2 ;;
@@ -89,7 +95,8 @@ read_options(){
 		4) php5allext ;;
 		5) webmin ;;
 		6) proftpd ;;
-		7) exit 0;;
+		7) bind9 ;;
+		8) exit 0;;
 		*) echo -e "${RED}Error...${STD}" && sleep 2
 	esac
 }
