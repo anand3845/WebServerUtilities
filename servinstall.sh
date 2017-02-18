@@ -64,8 +64,19 @@ proftpd(){
 		 sudo chmod -R 775 /var/www
 }
 
+drupal7() {
+	echo "Installing Drupal..."
+	wget https://ftp.drupal.org/files/projects/drupal-7.0.tar.gz
+	tar -zxvf drupal-7.0.tar.gz
+	mv drupal-7.0/* /var/www/html
+	cd /var/www/html/
+	cp sites/default/default.settings.php sites/default/settings.php
+	chmod a+w sites/default/settings.php
+	chmod a+w sites/default
+}
+
 bind9() {
-	echo "INstall BIND DNS Server..."
+	echo "Install BIND DNS Server..."
 	sudo apt-get -y -f install bind9	
 }
  
@@ -82,12 +93,13 @@ show_menus() {
 	echo "5. Install Webmin"
 	echo "6. Install ProFtpd"
 	echo "7. Install BIND"
-	echo "8. Exit"
+	echo "8. Install Drupal 7"
+	echo "9. Exit"
 }
 # read input from the keyboard and take a action
 read_options(){
 	local choice
-	read -p "Enter choice [ 1 - 8] " choice
+	read -p "Enter choice [ 1 - 9] " choice
 	case $choice in
 		1) mysql ;;
 		2) apache2 ;;
@@ -96,7 +108,8 @@ read_options(){
 		5) webmin ;;
 		6) proftpd ;;
 		7) bind9 ;;
-		8) exit 0;;
+		8) drupal7 ;;
+		9) exit 0;;
 		*) echo -e "${RED}Error...${STD}" && sleep 2
 	esac
 }
